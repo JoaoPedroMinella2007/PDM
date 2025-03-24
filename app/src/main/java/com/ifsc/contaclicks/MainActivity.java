@@ -3,40 +3,46 @@ package com.ifsc.contaclicks;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
     Integer i = 0;
 
+    EditText edpeso, edaltura;
+    TextView tvresultado;
+    Button buttonCalcular;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        //Associando objeto informando a variavel local
-        TextView tv = findViewById(R.id.TextView);
-        tv.setText(getString(R.string.app_name));
+        edpeso = findViewById(R.id.edpeso);
+        edaltura = findViewById(R.id.edaltura);
+        tvresultado = findViewById(R.id.tvresultadoimc);
+        buttonCalcular = findViewById(R.id.buttonCalcular);
 
-        Button b = findViewById(R.id.button);
+        //Define um tratamento para o click do button
+        buttonCalcular.setOnClickListener(v -> {
 
-        b.setOnClickListener(new View.OnClickListener() {
+            //calcular o IMC
+            //Recuperar os dados de peso e altura
 
-            @Override
-            public void onClick(View v) {
+            double peso, altura, imc;
 
-                tv.setText(Integer.toString(i));
-                i++;
+            peso = Double.parseDouble(edpeso.getText().toString());
+            altura = Double.parseDouble(edaltura.getText().toString());
 
-            }
+            imc = peso / (altura * altura);
+
+            tvresultado.setText(Double.toString(imc));
+
         });
-
 
     }
 }
